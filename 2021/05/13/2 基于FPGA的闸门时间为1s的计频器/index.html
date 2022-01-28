@@ -23,21 +23,21 @@
     var CONFIG = {"hostname":"yizhi-w.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="@TOC 听歌The sound of silence—-Simon &amp; Garfunkel老歌了。 [video(video-UTkzIxrp-1620911962802)(type-bilibili)(url-https:&#x2F;&#x2F;player.bilibili.com&#x2F;player.html?aid&#x3D;232174)(image-https:&#x2F;&#x2F;ss.csdn.net&#x2F;p?http:&#x2F;&#x2F;i1">
+  <meta name="description" content="@TOC 听歌The sound of silence—-Simon &amp; Garfunkel老歌了。      前言这是学校的电子设计比赛中的一道题，我们队伍用basys3开发板做了这么一个计频器，下面提到的功能基本上都达到了，程序上略微还有一些瑕疵。 功能 测量正弦波信号的频率，1Hz-10MHz，峰峰值在20mV-1000mV，相对误差误差在10e-2以内； 测量两个同频不同相位的方波">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FPGA_FIR数字低通滤波器">
-<meta property="og:url" content="https://yizhi-w.cn/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/index.html">
+<meta property="og:title" content="基于FPGA的闸门时间为1s的计频器">
+<meta property="og:url" content="https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/index.html">
 <meta property="og:site_name" content="YiZhi_W的博客">
-<meta property="og:description" content="@TOC 听歌The sound of silence—-Simon &amp; Garfunkel老歌了。 [video(video-UTkzIxrp-1620911962802)(type-bilibili)(url-https:&#x2F;&#x2F;player.bilibili.com&#x2F;player.html?aid&#x3D;232174)(image-https:&#x2F;&#x2F;ss.csdn.net&#x2F;p?http:&#x2F;&#x2F;i1">
+<meta property="og:description" content="@TOC 听歌The sound of silence—-Simon &amp; Garfunkel老歌了。      前言这是学校的电子设计比赛中的一道题，我们队伍用basys3开发板做了这么一个计频器，下面提到的功能基本上都达到了，程序上略微还有一些瑕疵。 功能 测量正弦波信号的频率，1Hz-10MHz，峰峰值在20mV-1000mV，相对误差误差在10e-2以内； 测量两个同频不同相位的方波">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-01-28T03:55:00.133Z">
+<meta property="article:modified_time" content="2022-01-28T11:43:40.392Z">
 <meta property="article:author" content="王忆之">
-<meta property="article:tag" content="FPGA">
 <meta property="article:tag" content="Verilog">
+<meta property="article:tag" content="信号处理">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://yizhi-w.cn/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/">
+<link rel="canonical" href="https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>FPGA_FIR数字低通滤波器 | YiZhi_W的博客</title>
+  <title>基于FPGA的闸门时间为1s的计频器 | YiZhi_W的博客</title>
   
 
 
@@ -176,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          FPGA_FIR数字低通滤波器
+          基于FPGA的闸门时间为1s的计频器
         </h1>
 
         <div class="post-meta">
@@ -206,8 +206,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-28 11:55:00" itemprop="dateModified" datetime="2022-01-28T11:55:00+08:00">2022-01-28</time>
+                <time title="修改时间：2022-01-28 19:43:40" itemprop="dateModified" datetime="2022-01-28T19:43:40+08:00">2022-01-28</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -229,7 +238,10 @@
       
         <p>@<a href="%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8">TOC</a></p>
 <h2 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h2><p>The sound of silence—-Simon &amp; Garfunkel<br>老歌了。</p>
-<p>[video(video-UTkzIxrp-1620911962802)(type-bilibili)(url-<a target="_blank" rel="noopener" href="https://player.bilibili.com/player.html?aid=232174)(image-https://ss.csdn.net/p?http://i1.hdslb.com/bfs/archive/c56f16f40372f24c56fdd2c7e24da946b6161b54.jpg)">https://player.bilibili.com/player.html?aid=232174)(image-https://ss.csdn.net/p?http://i1.hdslb.com/bfs/archive/c56f16f40372f24c56fdd2c7e24da946b6161b54.jpg)</a>(title-《寂静之声》The Sound of Silence 超越半个世纪的经典)]</p>
+<iframe src="//player.bilibili.com/player.html?aid=714889542&bvid=BV1ZX4y1u7ZH&cid=320332620&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是学校的电子设计比赛中的一道题，我们队伍用basys3开发板做了这么一个计频器，下面提到的功能基本上都达到了，程序上略微还有一些瑕疵。</p>
 <h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ol>
 <li>测量正弦波信号的频率，1Hz-10MHz，峰峰值在20mV-1000mV，相对误差误差在10e-2以内；</li>
@@ -286,7 +298,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yizhi-w.cn/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/" title="FPGA_FIR数字低通滤波器">https://yizhi-w.cn/2021/05/13/基于FPGA的闸门时间为1s的计频器/</a>
+    <a href="https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/" title="基于FPGA的闸门时间为1s的计频器">https://yizhi-w.cn/2021/05/13/2 基于FPGA的闸门时间为1s的计频器/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -316,8 +328,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/FPGA/" rel="tag"># FPGA</a>
               <a href="/tags/Verilog/" rel="tag"># Verilog</a>
+              <a href="/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" rel="tag"># 信号处理</a>
           </div>
 
         
@@ -327,7 +339,7 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/07/21/FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="next" title="FPGA_FIR数字低通滤波器">
+    <a href="/2021/07/21/1%20FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="next" title="FPGA_FIR数字低通滤波器">
       FPGA_FIR数字低通滤波器 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -404,14 +416,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
