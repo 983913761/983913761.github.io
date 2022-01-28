@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/</loc>
+    <loc>https://yizhi-w.cn/2021/05/13/%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/07/21/FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/</loc>
+    <loc>https://yizhi-w.cn/2021/07/21/FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>https://yizhi-w.cn/about/index.html</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://yizhi-w.cn/categories/index.html</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://yizhi-w.cn/tags/index.html</loc>
     
     <lastmod>2022-01-27</lastmod>
     
@@ -48,7 +48,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://yizhi-w.cn/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -56,14 +56,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/FPGA/</loc>
+    <loc>https://yizhi-w.cn/tags/FPGA/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Verilog/</loc>
+    <loc>https://yizhi-w.cn/tags/Verilog/</loc>
     <lastmod>2022-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
