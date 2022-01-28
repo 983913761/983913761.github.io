@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>YiZhi_W的博客</title>
+  
+  
+  <link href="https://yizhi-w.cn/atom.xml" rel="self"/>
+  
+  <link href="https://yizhi-w.cn/"/>
+  <updated>2022-01-28T12:27:53.496Z</updated>
+  <id>https://yizhi-w.cn/</id>
+  
+  <author>
+    <name>王忆之</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网站建成啦！</title>
+    <link href="https://yizhi-w.cn/2022/01/28/3%20%E7%BD%91%E7%AB%99%E7%BB%88%E4%BA%8E%E5%BB%BA%E6%88%90%E4%BA%86%E6%8D%8F%EF%BC%81/"/>
+    <id>https://yizhi-w.cn/2022/01/28/3%20%E7%BD%91%E7%AB%99%E7%BB%88%E4%BA%8E%E5%BB%BA%E6%88%90%E4%BA%86%E6%8D%8F%EF%BC%81/</id>
+    <published>2022-01-27T16:00:00.000Z</published>
+    <updated>2022-01-28T12:27:53.496Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="网站终于建成了捏！"><a href="#网站终于建成了捏！" class="headerlink" title="网站终于建成了捏！"></a>网站终于建成了捏！</h1><p>​    跟很多没见过的东西鏖战了三天，网站基本上搭建起来了，终于把这件在学校里想做却又没时间做的事情搞定了。</p><p>​    还在不断完善中</p><p>​    寒假来了，希望自己可以好好把这学期做的事情整理一下…</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;网站终于建成了捏！&quot;&gt;&lt;a href=&quot;#网站终于建成了捏！&quot; class=&quot;headerlink&quot; title=&quot;网站终于建成了捏！&quot;&gt;&lt;/a&gt;网站终于建成了捏！&lt;/h1&gt;&lt;p&gt;​    跟很多没见过的东西鏖战了三天，网站基本上搭建起来了，终于把这件在学校里想做</summary>
+      
+    
+    
+    
+    <category term="咸盐碎雨" scheme="https://yizhi-w.cn/categories/%E5%92%B8%E7%9B%90%E7%A2%8E%E9%9B%A8/"/>
+    
+    
+    <category term="碎碎念" scheme="https://yizhi-w.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FPGA_FIR数字低通滤波器</title>
+    <link href="https://yizhi-w.cn/2021/07/21/1%20FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/"/>
+    <id>https://yizhi-w.cn/2021/07/21/1%20FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/</id>
+    <published>2021-07-20T16:00:00.000Z</published>
+    <updated>2022-01-28T11:56:47.565Z</updated>
+    
+    <content type="html"><![CDATA[</font><h1 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h1><p>梦龙的Demons</p><iframe src="//player.bilibili.com/player.html?aid=633950758&bvid=BV1fb4y1b7Jy&cid=436786424&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe># 前言<p>这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核的小白视角来介绍一下它们的使用方法以及调试中的一些问题。</p><h1 id="一、XADC核的配置以及使用方式"><a href="#一、XADC核的配置以及使用方式" class="headerlink" title="一、XADC核的配置以及使用方式"></a>一、XADC核的配置以及使用方式</h1><p>1.滤波的第一步我们需要把外界的模拟量转化为数字量，在这里我使用了Xillinx  7系列FPGA自带的XADC，当然如果你想外接其它AD模块也完全没有问题。在设置IP核时，主要关心以下几个配置。<br><img src="https://img-blog.csdnimg.cn/img_convert/ec2ee79454a78fc6ae87cca530d7217c.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/75e3cfea6f2d1a1b5d1e6111067e30e1.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/6b28e1953d1ef506a56977f1109e2478.png" alt="在这里插入图片描述"></p><h3 id="第一个标签页："><a href="#第一个标签页：" class="headerlink" title="第一个标签页："></a>第一个标签页：</h3><p>1.选择DRP模式，这个模式相对来说便于控制。<br>2.在Timing Mode中选择Continuous Mode，其意义是对信号持续进行采样。<br>3.选择Simultaneous Selection,这个选项可以使得XADC可以对多路信号进行采样，如果被采样的信号只有一路的话选择Single也没有问题。<br>4.然后设置系统的工作时钟以及采样率，XADC支持的最高采样率为1Mhz。</p><h3 id="第二个标签页："><a href="#第二个标签页：" class="headerlink" title="第二个标签页："></a>第二个标签页：</h3><p>1.Channel Averaging指的是对输入的信号做平均运算，好处是使得输入的信号更加平滑没有毛刺，坏处是大大降低了采样率，会使高频信号失真。例如：输入信号为10KHz，不使用平均运算时每一个周期的信号会被采样1M/10K=100次，此时波形基本不失真，但如果对它做16位的平均那么该信号只相当于被采样了100/16次，显然波形会失真。在该数字滤波器的设计中我们选择None就可以了。</p><h3 id="第三个标签页："><a href="#第三个标签页：" class="headerlink" title="第三个标签页："></a>第三个标签页：</h3><p>1.我只使用了一路信号输入，勾选va0通路即可。</p><h3 id="编写XADC驱动："><a href="#编写XADC驱动：" class="headerlink" title="编写XADC驱动："></a>编写XADC驱动：</h3><p>XADC的驱动非常简单，只需要每隔一段时间拉高读使能端即可，代码放在文章的最后。到这里XADC的部分基本完成了。</p><h2 id="例化IP核"><a href="#例化IP核" class="headerlink" title="例化IP核"></a>例化IP核</h2><h5 id="XADC："><a href="#XADC：" class="headerlink" title="XADC："></a>XADC：</h5><p>  .di_in(di_in),                              // 写XADC的数据，不关心<br>  .daddr_in(daddr_in),                        // 写XADC的地址，不关心<br>  .den_in(den_in),                            // 写使能，不关心<br>  .dwe_in(dwe_in),                            // 读使能，重要<br>  .drdy_out(drdy_out),                        // XADC准备好数据候会拉高该信号，可用可不用<br>  .do_out(do_out),                            // XADC输出数据，重要，输出的位宽是16位的，只需要关心高12位即可（官方数据手册宣称的12位ADC）<br>  .dclk_in(dclk_in),                          // 系统工作时钟，重要，和配置IP时填写一致即可<br>  .reset_in(reset_in),                        // 可用可不用<br>  .vauxp0(vauxp0),                            //<br>  .vauxn0(vauxn0),                            // XADC的通道，外部模拟信号就从这里输入<br>  .user_temp_alarm_out(user_temp_alarm_out),  // 以下信号不使用，但他们的功能其实很实用，感兴趣可以了解一下<br>  .vccint_alarm_out(vccint_alarm_out),<br>  .vccaux_alarm_out(vccaux_alarm_out),<br>  .vccpint_alarm_out(vccpint_alarm_out),<br>  .vccpaux_alarm_out(vccpaux_alarm_out),<br>  .vccddro_alarm_out(vccddro_alarm_out),<br>  .ot_out(ot_out),<br>  .channel_out(channel_out),<br>  .eoc_out(eoc_out),<br>  .alarm_out(alarm_out),<br>  .eos_out(eos_out),<br>  .busy_out(busy_out)          </p><h1 id="二、FIR核的配置"><a href="#二、FIR核的配置" class="headerlink" title="二、FIR核的配置"></a>二、FIR核的配置</h1><p>Vivado的FIR核不能够设计滤波器，但可以通过导入Matlab设计滤波器时生成的.coe文件来生成一个滤波器，步骤如下：</p><h2 id="1-使用Matlab设计一个滤波器"><a href="#1-使用Matlab设计一个滤波器" class="headerlink" title="1.使用Matlab设计一个滤波器"></a>1.使用Matlab设计一个滤波器</h2><p>1.打开滤波器设计工具，设置好滤波器类型、通频带、截止频率等参数。</p><p><img src="https://img-blog.csdnimg.cn/img_convert/16a96a598d837dda377f2f486679d4b2.png" alt="在这里插入图片描述"></p><p>2.选择直接型FIR结构</p><p><img src="https://img-blog.csdnimg.cn/img_convert/dc5ea9f9e4343940e785906403007139.png" alt="在这里插入图片描述"></p><p>3.设置量化方式<br><img src="https://img-blog.csdnimg.cn/img_convert/769813c0f83279f79be1da9754c91704.png" alt="在这里插入图片描述"><br>4.设计滤波器后生成.coe文件<br><img src="https://img-blog.csdnimg.cn/img_convert/affabbaffaf50dabbc90b0825f93249b.png" alt="在这里插入图片描述"></p><p>到这里滤波器已经设计完成了，有几个注意事项：一是设计方法并不一定要使用等波纹型，汉明窗等等也很好用。二是要按图中的的步骤将滤波器设计为定点、全精度、直接型FIR滤波器，否则无法生成.coe文件。第三是量化的分子字长和Fs这两个参数要记住，等会会用到。</p><h2 id="2-配置FIR核"><a href="#2-配置FIR核" class="headerlink" title="2.配置FIR核"></a>2.配置FIR核</h2><p><img src="https://img-blog.csdnimg.cn/img_convert/0a07593e5daf04f17cd9d74372e29799.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/bc1086a63b1f684cd95e393829a53154.png" alt="在这里插入图片描述"></p><p><img src="https://img-blog.csdnimg.cn/img_convert/4407bb621ee2aaf1e235aa2dcbd21907.png" alt="在这里插入图片描述"></p><h3 id="第一个标签页：-1"><a href="#第一个标签页：-1" class="headerlink" title="第一个标签页："></a>第一个标签页：</h3><p>1.配置好.coe文件的目录，Single Rate是单速率。</p><h3 id="第二个标签页：-1"><a href="#第二个标签页：-1" class="headerlink" title="第二个标签页："></a>第二个标签页：</h3><p>1.需要注意的是两个时钟频率，按实际情况填写。</p><h3 id="第三个标签页：-1"><a href="#第三个标签页：-1" class="headerlink" title="第三个标签页："></a>第三个标签页：</h3><p>1.<em><strong>Coeffcient Type和Coeffcient Width要和量化滤波器时选择的相一致（很重要，错误的值可能会导致频率响应等错误）。</strong></em><br>2.Input Data Width和你输入的数据一致。</p><h2 id="3-例化IP核"><a href="#3-例化IP核" class="headerlink" title="3.例化IP核"></a>3.例化IP核</h2><h5 id="FIR："><a href="#FIR：" class="headerlink" title="FIR："></a>FIR：</h5><p>fir_compiler_0 your_instance_name (<br>  .aclk(aclk),                              // 输入时钟频率<br>  .s_axis_data_tvalid(s_axis_data_tvalid),  // 输入信号有效，我们默认输入的信号一直有效所以拉高即可<br>  .s_axis_data_tready(s_axis_data_tready),  // 输出信号准备完成，可用可不用<br>  .s_axis_data_tdata(s_axis_data_tdata),    // <strong>输入信号，这个接口的位宽和配置ip核时填写的位宽是不一致的，这个点需要注意，可以选择用输入的最高位把多出来的位宽补齐。</strong><br>  .m_axis_data_tvalid(m_axis_data_tvalid),  // 输出数据有效，可用可不用<br>  .m_axis_data_tdata(m_axis_data_tdata)    // <strong>输出信号，重要，虽然输入信号只有12位，但输出信号有足足32位，我们只需要关心高位。如果在配置IP时选择了带符号位，那么最高位会变成符号位。</strong><br>);</p><h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>例外完成之后跑一遍工程然后下板调试，预期的结果为：频率在2Khz以下时幅值不变，高于2Khz后逐渐衰减，高于10Khz以后衰减到-40dB左右，如图所示：<br><img src="https://img-blog.csdnimg.cn/img_convert/362a0a67133002f469023188268677ce.png" alt="在这里插入图片描述"></p><p>实物测试结果（黄色信号为滤波后的信号，成功实现预期目标，低通滤波器没有问题了，但在调试高通滤波器时波形并不正确，目前正在调试寻找原因，有空继续更。）：<br>[video(video-YJhxxPLu-1626843616781)(type-csdn)(url-<a href="https://live.csdn.net/v/embed/171930)(image-https://vedu.csdnimg.cn/dd0eb685b82640378cedff0a63094401/snapshots/f54e2ea409294db39a982a9722282035-00003.jpg)(title-%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8)]">https://live.csdn.net/v/embed/171930)(image-https://vedu.csdnimg.cn/dd0eb685b82640378cedff0a63094401/snapshots/f54e2ea409294db39a982a9722282035-00003.jpg)(title-数字滤波器)]</a></p><p>工程链接：<a href="https://download.csdn.net/download/YIZHI_W/20392285">https://download.csdn.net/download/YIZHI_W/20392285</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;/font&gt;
+
+
+
+&lt;h1 id=&quot;听歌&quot;&gt;&lt;a href=&quot;#听歌&quot; class=&quot;headerlink&quot; title=&quot;听歌&quot;&gt;&lt;/a&gt;听歌&lt;/h1&gt;&lt;p&gt;梦龙的Demons&lt;/p&gt;
+&lt;iframe src=&quot;//player.bilibili.com/player.htm</summary>
+      
+    
+    
+    
+    <category term="FPGA" scheme="https://yizhi-w.cn/categories/FPGA/"/>
+    
+    
+    <category term="Verilog" scheme="https://yizhi-w.cn/tags/Verilog/"/>
+    
+    <category term="IP核" scheme="https://yizhi-w.cn/tags/IP%E6%A0%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于FPGA的闸门时间为1s的计频器</title>
+    <link href="https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/"/>
+    <id>https://yizhi-w.cn/2021/05/13/2%20%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8/</id>
+    <published>2021-05-12T16:00:00.000Z</published>
+    <updated>2022-01-28T11:43:40.392Z</updated>
+    
+    <content type="html"><![CDATA[<p>@<a href="%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8">TOC</a></p><h2 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h2><p>The sound of silence—-Simon &amp; Garfunkel<br>老歌了。</p><iframe src="//player.bilibili.com/player.html?aid=714889542&bvid=BV1ZX4y1u7ZH&cid=320332620&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是学校的电子设计比赛中的一道题，我们队伍用basys3开发板做了这么一个计频器，下面提到的功能基本上都达到了，程序上略微还有一些瑕疵。</p><h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ol><li>测量正弦波信号的频率，1Hz-10MHz，峰峰值在20mV-1000mV，相对误差误差在10e-2以内；</li><li>测量两个同频不同相位的方波信号的时间间隔，峰峰值在100mV-1000mV，相对误差误差在10e-2以内；</li><li>测量方波信号的占空比，相对误差误差在10e-2以内；</li></ol><p> 测得的数据稳定，刷新时间不大于2s，自动显示单位。<br>（其实就是2015年全国电赛计频器的弱化版）</p><h2 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h2><p>1.测量频率：不断检测目标信号，一直到出现上升沿，此时打开1s的闸门，记录1s钟之内出现的上升沿、下降沿个数以及高电平、低电平的持续时间。如果上升沿的个数=下降沿的个数就说明上升沿的个数与高电平的时间是匹配的；如果上升沿的个数&gt;下降沿的个数则说明下降沿的个数与低电平的时间是匹配的；由于是出现上升沿的时候开启闸门，所以理论上不会出现下降沿个数&gt;上升沿个数的情况。</p><p>   <em>上升沿的个数&gt;下降沿的个数 –&gt; 频率=高电平时间/上升沿个数<br>    上升沿的个数=下降沿的个数–&gt; 频率=低电平时间/下降沿个数</em></p><p>2.测量时间间隔：将两路信号做异或运算，高电平的时长即时间间隔。*==需要注意的是当两路信号的相位差正好是180°时异或运算得到的信号全为高电平，这种情况为妨碍测量，需要特殊情况特殊处理。==*</p><p>3.占空比测量:在一个上升沿和一个下降沿之间，记高电平和低电平的时间</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[选择功能]  --&gt; B[检测模块]</span><br><span class="line">B --&gt; C&#123;频率数据处理模块&#125;</span><br><span class="line">B --&gt; D&#123;时间间隔数据处理模块&#125;</span><br><span class="line">B --&gt; E&#123;占空比数据处理模块&#125;</span><br><span class="line">C--&gt;F[LCD1602]</span><br><span class="line">D--&gt;F[LCD1602]</span><br><span class="line">E--&gt;F[LCD1602]</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h2 id="模块功能说明"><a href="#模块功能说明" class="headerlink" title="模块功能说明"></a>模块功能说明</h2><p>检测模块：①测量闸门时间内的上升沿个数、下降沿个数、高电平时间、低电平时间。    ②测量两路信号异或后的信号的高电平时间。③测量一个周期内的高电平时间和低电平时间。</p><p>数据处理模块：以频率数据处理模块为例，首先凭借检测模块给出的原始数据计算出频率的值，然后通过加三移位法把二进制的频率转换成BCD码，然后对BCD码进行编码转换成LCD1602需要的数据。其余俩数据处理模块基本大同小异。</p><p>LCD1602：用简单的状态机就可以驱动。</p><h2 id="硬件方面"><a href="#硬件方面" class="headerlink" title="硬件方面"></a>硬件方面</h2><p>题目给的电压都在1V以下，甚至有低于100mV的情况，这种电压不经处理的话显然FPGA是无法识别的，因此我们需要做两件事，第一件事是把电压放大至一个稳定的大小，第二件事是把正弦波整型成方波。需要用到AGC电路和TLV3501一类的电路，这部分网上资料很多，在这里我就不多说了。不过硬件方面确实要多花些时间，比起FPGA硬件对精度的影响要大的多。</p><h2 id="Vivado工程链接"><a href="#Vivado工程链接" class="headerlink" title="Vivado工程链接"></a>Vivado工程链接</h2><p><a href="https://download.csdn.net/download/YIZHI_W/18669789">https://download.csdn.net/download/YIZHI_W/18669789</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;@&lt;a href=&quot;%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E9%97%B8%E9%97%A8%E6%97%B6%E9%97%B4%E4%B8%BA1s%E7%9A%84%E8%AE%A1%E9%A2%91%E5%99%A8&quot;&gt;TOC&lt;/a&gt;&lt;/p&gt;</summary>
+      
+    
+    
+    
+    <category term="FPGA" scheme="https://yizhi-w.cn/categories/FPGA/"/>
+    
+    
+    <category term="信号处理" scheme="https://yizhi-w.cn/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/"/>
+    
+    <category term="Verilog" scheme="https://yizhi-w.cn/tags/Verilog/"/>
+    
+  </entry>
+  
+</feed>
