@@ -78,7 +78,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="YiZhi_W的博客" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="YiZhi_W的博客" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -197,7 +197,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-28 00:00:00 / 修改时间：19:31:14" itemprop="dateCreated datePublished" datetime="2022-01-28T00:00:00+08:00">2022-01-28</time>
+              <time title="创建时间：2022-01-28 00:00:00 / 修改时间：19:45:57" itemprop="dateCreated datePublished" datetime="2022-01-28T00:00:00+08:00">2022-01-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,7 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网站终于建成了捏！"><a href="#网站终于建成了捏！" class="headerlink" title="网站终于建成了捏！"></a>网站终于建成了捏！</h1><pre><code>  跟很多没见过的东西鏖战了三天，网站基本上搭建起来了，终于把这件在学校里想做确又没时间做的事情搞定了。
+          <h1 id="网站终于建成了捏！"><a href="#网站终于建成了捏！" class="headerlink" title="网站终于建成了捏！"></a>网站终于建成了捏！</h1><pre><code>  跟很多没见过的东西鏖战了三天，网站基本上搭建起来了，终于把这件在学校里想做却又没时间做的事情搞定了。
 
   寒假来了，希望自己可以好好把这学期做的事情整理一下...
 </code></pre>
@@ -274,7 +274,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-28 19:42:48" itemprop="dateModified" datetime="2022-01-28T19:42:48+08:00">2022-01-28</time>
+                <time title="修改时间：2022-01-28 19:56:47" itemprop="dateModified" datetime="2022-01-28T19:56:47+08:00">2022-01-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,11 +299,13 @@
       
           </font>
 
-<p>@<a href="%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95">TOC</a></p>
+
+
 <h1 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h1><p>梦龙的Demons</p>
 <iframe src="//player.bilibili.com/player.html?aid=633950758&bvid=BV1fb4y1b7Jy&cid=436786424&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+# 前言
 
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核的小白视角来介绍一下它们的使用方法以及调试中的一些问题。</p>
+<p>这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核的小白视角来介绍一下它们的使用方法以及调试中的一些问题。</p>
 <h1 id="一、XADC核的配置以及使用方式"><a href="#一、XADC核的配置以及使用方式" class="headerlink" title="一、XADC核的配置以及使用方式"></a>一、XADC核的配置以及使用方式</h1><p>1.滤波的第一步我们需要把外界的模拟量转化为数字量，在这里我使用了Xillinx  7系列FPGA自带的XADC，当然如果你想外接其它AD模块也完全没有问题。在设置IP核时，主要关心以下几个配置。<br><img src="https://img-blog.csdnimg.cn/img_convert/ec2ee79454a78fc6ae87cca530d7217c.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/75e3cfea6f2d1a1b5d1e6111067e30e1.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/6b28e1953d1ef506a56977f1109e2478.png" alt="在这里插入图片描述"></p>
 <h3 id="第一个标签页："><a href="#第一个标签页：" class="headerlink" title="第一个标签页："></a>第一个标签页：</h3><p>1.选择DRP模式，这个模式相对来说便于控制。<br>2.在Timing Mode中选择Continuous Mode，其意义是对信号持续进行采样。<br>3.选择Simultaneous Selection,这个选项可以使得XADC可以对多路信号进行采样，如果被采样的信号只有一路的话选择Single也没有问题。<br>4.然后设置系统的工作时钟以及采样率，XADC支持的最高采样率为1Mhz。</p>
 <h3 id="第二个标签页："><a href="#第二个标签页：" class="headerlink" title="第二个标签页："></a>第二个标签页：</h3><p>1.Channel Averaging指的是对输入的信号做平均运算，好处是使得输入的信号更加平滑没有毛刺，坏处是大大降低了采样率，会使高频信号失真。例如：输入信号为10KHz，不使用平均运算时每一个周期的信号会被采样1M/10K=100次，此时波形基本不失真，但如果对它做16位的平均那么该信号只相当于被采样了100/16次，显然波形会失真。在该数字滤波器的设计中我们选择None就可以了。</p>
@@ -528,7 +530,7 @@
   </nav>
 </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 

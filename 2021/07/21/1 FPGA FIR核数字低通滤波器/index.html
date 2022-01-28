@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"yizhi-w.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="@TOC 听歌梦龙的Demons    前言这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核">
+  <meta name="description" content="听歌梦龙的Demons   # 前言  这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FPGA_FIR数字低通滤波器">
 <meta property="og:url" content="https://yizhi-w.cn/2021/07/21/1%20FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/index.html">
 <meta property="og:site_name" content="YiZhi_W的博客">
-<meta property="og:description" content="@TOC 听歌梦龙的Demons    前言这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核">
+<meta property="og:description" content="听歌梦龙的Demons   # 前言  这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/ec2ee79454a78fc6ae87cca530d7217c.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/75e3cfea6f2d1a1b5d1e6111067e30e1.png">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/4407bb621ee2aaf1e235aa2dcbd21907.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/362a0a67133002f469023188268677ce.png">
 <meta property="article:published_time" content="2021-07-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-01-28T11:42:48.964Z">
+<meta property="article:modified_time" content="2022-01-28T11:56:47.565Z">
 <meta property="article:author" content="王忆之">
 <meta property="article:tag" content="IP核">
 <meta property="article:tag" content="Verilog">
@@ -93,7 +93,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="YiZhi_W的博客" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="YiZhi_W的博客" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-28 19:42:48" itemprop="dateModified" datetime="2022-01-28T19:42:48+08:00">2022-01-28</time>
+                <time title="修改时间：2022-01-28 19:56:47" itemprop="dateModified" datetime="2022-01-28T19:56:47+08:00">2022-01-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,11 +250,13 @@
       
         </font>
 
-<p>@<a href="%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95">TOC</a></p>
+
+
 <h1 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h1><p>梦龙的Demons</p>
 <iframe src="//player.bilibili.com/player.html?aid=633950758&bvid=BV1fb4y1b7Jy&cid=436786424&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+# 前言
 
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核的小白视角来介绍一下它们的使用方法以及调试中的一些问题。</p>
+<p>这些天在准备电赛，看到其它同学有在准备一些模拟滤波器，我想起来Vivado中似乎带有XADC以及FIR滤波器的ip核，只需要再准备一块DA模块来输出信号就可以组成一个数字FIR滤波器。查阅相关资料后感觉难度并不大，但实际开始调试时仍然遇到了许多问题折磨了我很久。网上很多资料都比较笼统，没有对各个信号的用法作说明，本文从一个第一次接触XADC和FIR核的小白视角来介绍一下它们的使用方法以及调试中的一些问题。</p>
 <h1 id="一、XADC核的配置以及使用方式"><a href="#一、XADC核的配置以及使用方式" class="headerlink" title="一、XADC核的配置以及使用方式"></a>一、XADC核的配置以及使用方式</h1><p>1.滤波的第一步我们需要把外界的模拟量转化为数字量，在这里我使用了Xillinx  7系列FPGA自带的XADC，当然如果你想外接其它AD模块也完全没有问题。在设置IP核时，主要关心以下几个配置。<br><img src="https://img-blog.csdnimg.cn/img_convert/ec2ee79454a78fc6ae87cca530d7217c.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/75e3cfea6f2d1a1b5d1e6111067e30e1.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/6b28e1953d1ef506a56977f1109e2478.png" alt="在这里插入图片描述"></p>
 <h3 id="第一个标签页："><a href="#第一个标签页：" class="headerlink" title="第一个标签页："></a>第一个标签页：</h3><p>1.选择DRP模式，这个模式相对来说便于控制。<br>2.在Timing Mode中选择Continuous Mode，其意义是对信号持续进行采样。<br>3.选择Simultaneous Selection,这个选项可以使得XADC可以对多路信号进行采样，如果被采样的信号只有一路的话选择Single也没有问题。<br>4.然后设置系统的工作时钟以及采样率，XADC支持的最高采样率为1Mhz。</p>
 <h3 id="第二个标签页："><a href="#第二个标签页：" class="headerlink" title="第二个标签页："></a>第二个标签页：</h3><p>1.Channel Averaging指的是对输入的信号做平均运算，好处是使得输入的信号更加平滑没有毛刺，坏处是大大降低了采样率，会使高频信号失真。例如：输入信号为10KHz，不使用平均运算时每一个周期的信号会被采样1M/10K=100次，此时波形基本不失真，但如果对它做16位的平均那么该信号只相当于被采样了100/16次，显然波形会失真。在该数字滤波器的设计中我们选择None就可以了。</p>
@@ -315,7 +317,7 @@
     <a href="https://yizhi-w.cn/2021/07/21/1%20FPGA%20FIR%E6%A0%B8%E6%95%B0%E5%AD%97%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="FPGA_FIR数字低通滤波器">https://yizhi-w.cn/2021/07/21/1 FPGA FIR核数字低通滤波器/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -326,6 +328,16 @@
     <p>欢迎关注我的其它发布渠道</p>
 
     <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/WeChat.png">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
 
         <div class="social-item">
           <a target="_blank" class="social-link" href="/atom.xml">
@@ -417,7 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AC%E6%AD%8C"><span class="nav-number">1.</span> <span class="nav-text">听歌</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81XADC%E6%A0%B8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">一、XADC核的配置以及使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">第一个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">第二个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">3.0.3.</span> <span class="nav-text">第三个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99XADC%E9%A9%B1%E5%8A%A8%EF%BC%9A"><span class="nav-number">3.0.4.</span> <span class="nav-text">编写XADC驱动：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%8C%96IP%E6%A0%B8"><span class="nav-number">3.1.</span> <span class="nav-text">例化IP核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#XADC%EF%BC%9A"><span class="nav-number">3.1.0.0.1.</span> <span class="nav-text">XADC：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81FIR%E6%A0%B8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">二、FIR核的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8Matlab%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text">1.使用Matlab设计一个滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AEFIR%E6%A0%B8"><span class="nav-number">4.2.</span> <span class="nav-text">2.配置FIR核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">第一个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">第二个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">4.2.3.</span> <span class="nav-text">第三个标签页：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BE%8B%E5%8C%96IP%E6%A0%B8"><span class="nav-number">4.3.</span> <span class="nav-text">3.例化IP核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FIR%EF%BC%9A"><span class="nav-number">4.3.0.0.1.</span> <span class="nav-text">FIR：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">结果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AC%E6%AD%8C"><span class="nav-number">1.</span> <span class="nav-text">听歌</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81XADC%E6%A0%B8%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">一、XADC核的配置以及使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A"><span class="nav-number">2.0.3.</span> <span class="nav-text">第三个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99XADC%E9%A9%B1%E5%8A%A8%EF%BC%9A"><span class="nav-number">2.0.4.</span> <span class="nav-text">编写XADC驱动：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%8C%96IP%E6%A0%B8"><span class="nav-number">2.1.</span> <span class="nav-text">例化IP核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#XADC%EF%BC%9A"><span class="nav-number">2.1.0.0.1.</span> <span class="nav-text">XADC：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81FIR%E6%A0%B8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">二、FIR核的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8Matlab%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">1.使用Matlab设计一个滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AEFIR%E6%A0%B8"><span class="nav-number">3.2.</span> <span class="nav-text">2.配置FIR核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">第一个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">第二个标签页：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%A0%87%E7%AD%BE%E9%A1%B5%EF%BC%9A-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">第三个标签页：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BE%8B%E5%8C%96IP%E6%A0%B8"><span class="nav-number">3.3.</span> <span class="nav-text">3.例化IP核</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FIR%EF%BC%9A"><span class="nav-number">3.3.0.0.1.</span> <span class="nav-text">FIR：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -452,7 +464,7 @@
   </nav>
 </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
