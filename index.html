@@ -273,7 +273,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-29 09:33:10" itemprop="dateModified" datetime="2022-01-29T09:33:10+08:00">2022-01-29</time>
+                <time title="修改时间：2022-01-29 09:45:51" itemprop="dateModified" datetime="2022-01-29T09:45:51+08:00">2022-01-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,22 +299,20 @@
           <h1 id="把你的FPGA变成单片机——基于MicroBlaze内核的SOPC系统设计"><a href="#把你的FPGA变成单片机——基于MicroBlaze内核的SOPC系统设计" class="headerlink" title="把你的FPGA变成单片机——基于MicroBlaze内核的SOPC系统设计"></a>把你的FPGA变成单片机——基于MicroBlaze内核的SOPC系统设计</h1><h2 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h2><p>斯卡布罗集市</p>
 <iframe src="//player.bilibili.com/player.html?aid=293910617&bvid=BV1hF411a7b4&cid=435038587&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
-
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    这是我第一次使用MicroBlaze处理器软核，基于MicroBlaze的可编程片上系统可以根据用户的需要搭建外设，大大增强了系统的灵活性，在手头上没有Zynq的情况下，这或许是一个很好的替代选项。其实主要是一个学习的过程，系统总体设计难度不大，熟悉Block Design和SDK的提供的各种API后很快就能上手。</p>
-<h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><p>​    首先添加所需的各模块到Block Design中，配置各模块的功能与参数，随后点击自动连线，让系统自动配置AXI等接口的连接方式，最后引出Uart、GPIO等模块的外部引脚，至此Block Design搭建完成。</p>
-<p>​    右击Block Design选择Generate Output Products，然后点击综合，综合完成后打开综合结果，查询开发板的用户手册配置相应的管脚。之后进行布局布线，最后生成bit流文件。</p>
-<p>​    依次点击File、Export、Export Hardware，导出相关文件，随后选择Launch SDK，至此硬件开发部分结束，进入SDK软件开发环境。</p>
-<p>​    在SDK开发环境中创建一个新的工程。首先要定义各模块的相关参数，包含GPIO、XADC、中断以及IIC等IP核的器件ID、相关寄存器的地址、所需变量和句柄并定义中断所需的回调函数。</p>
-<p>​    Xilinx的7系列FPGA器件在片上集成了模数转换器和相关的片上传感器（例如内置温度传感器和功耗传感器），可以采集模拟信号转为数字信号送给FPGA内部使用，有力地提高了系统的集成度。我们通过它获取芯片结温和FPGA的若干供电电压，用于监控FPGA内部运行状况。</p>
-<p>​    其中需要注意的是XADC模块的采样通道并不是全部可用的，每块开发板都有所不同，需要预先查看开发板的用户手册来确定使用哪个通道。Xilinx在IP核中已经预先为每一个通道分配了对应的地址，使用过程中一定要注意地址的问题，例如AD采样通道7的地址是0x25C，我们可以通过这个地址来访问AD采样通道7的采样值。此处的0x25C是16进制的地址，在SDK中定义的是偏移地址（以字节作为单位），两者有所差别。在使用过程中需要仔细阅读Xilinx提供的相关手册。</p>
-<p>​    IIC模块在运行的过程中每接受/发送成功一个字节后会发起一次中断。我们编写了相关代码，使得主机在完成了发送一个字节的动作后或是正在接收一个字节时，就会进入阻塞状态，随后利用中断回调函数来清除中断标志位使得程序继续运行，这样的好处是可以用非常简单的逻辑来对齐IIC的时序，便于控制。</p>
-<p>​    在主函数中，我们先使能各模块并调用函数初始化相关模块，随后程序进入while循环，设备开始工作。</p>
-<h2 id="调试过程"><a href="#调试过程" class="headerlink" title="调试过程"></a>调试过程</h2><p>​    第一个问题是有关GPIO库函数中设置GPIO方向的函数XGpio_SetDataDirection，</p>
-<p>​         <img src="file:///C:/Users/YiZhi_W/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img">  </p>
-<p>​    我们使用该库函数定义GPIO的方向后发现GPIO功能异常，只有其中的最低位可以正常工作，但是当我们使用配置寄存器的方式去修改GPIO的方向时功能正常。我们查阅了2018.3版本的Vivado SDK官方API手册，其中说到该函数的第三个参数为方向掩码，设置为0时GPIO的方向为输出，设置为1时GPIO的方向为输入。我们的代码满足要求，经过我们的反复确认，手册中提及的这个方向掩码实际上是针对单个GPIO而言的，该版本下的API手册中并没有说清楚当用户使用多路GPIO时该参数需要如何赋值，在查阅最新版本的手册后发现方向掩码的描述应是设置为0 的位为输出，设置为1 的位为输入。也就是说当使用多路GPIO的时候应给方向掩码的每一位赋1而不是单纯的将方向掩码改为1。这与通过修改寄存器来修改GPIO的方向的方法一致，修改过后成功解决问题。</p>
-<p>​    第二个问题也是耗时最久的问题，程序在通过IIC读取MLX90614的温度时卡死。经过仔细排查，最终锁定问题出在回调函数的设定函数（XIic_SetRecvHandler, XIic_SetSendHandler以及XIic_SetStatusHandler）上，查询它们的子函数，发现在一个名为Xil_AssertVoid的函数中包含一层While循环，而这层While循环在程序运行时并没有正常跳出，这是问题产生的原因。查阅资料后发现，这个函数在调试模式下会调用Xil_Assert来检查参数是否正常。如果不正常，缺省情况下，没有打印，会进入死循环。通过调用Xil_AssertSetCallback，设置回调函数，可以自己处理失败情况，比如增加打印。修改While循环的条件后问题解决，程序正常运行。</p>
-<h2 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h2><p>​    最终设备能够测量物体温度并识别人员是否靠近、是否佩戴口罩（用的Openmv，神经网络识别）以及体温是否正常，最终实时语言播报并把相关信息发送到手机上。</p>
-<p>​    工程链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/YIZHI_W/78369460?spm=1001.2014.3001.5503">https://download.csdn.net/download/YIZHI_W/78369460?spm=1001.2014.3001.5503</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​        这是我第一次使用MicroBlaze处理器软核，基于MicroBlaze的可编程片上系统可以根据用户的需要搭建外设，大大增强了系统的灵活性，在手头上没有Zynq的情况下，这或许是一个很好的替代选项。其实主要是一个学习的过程，系统总体设计难度不大，熟悉Block Design和SDK的提供的各种API后很快就能上手。</p>
+<h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><p>​        首先添加所需的各模块到Block Design中，配置各模块的功能与参数，随后点击自动连线，让系统自动配置AXI等接口的连接方式，最后引出Uart、GPIO等模块的外部引脚，至此Block Design搭建完成。</p>
+<p>​        右击Block Design选择Generate Output Products，然后点击综合，综合完成后打开综合结果，查询开发板的用户手册配置相应的管脚。之后进行布局布线，最后生成bit流文件。</p>
+<p>​        依次点击File、Export、Export Hardware，导出相关文件，随后选择Launch SDK，至此硬件开发部分结束，进入SDK软件开发环境。</p>
+<p>​        在SDK开发环境中创建一个新的工程。首先要定义各模块的相关参数，包含GPIO、XADC、中断以及IIC等IP核的器件ID、相关寄存器的地址、所需变量和句柄并定义中断所需的回调函数。</p>
+<p>​        Xilinx的7系列FPGA器件在片上集成了模数转换器和相关的片上传感器（例如内置温度传感器和功耗传感器），可以采集模拟信号转为数字信号送给FPGA内部使用，有力地提高了系统的集成度。我们通过它获取芯片结温和FPGA的若干供电电压，用于监控FPGA内部运行状况。</p>
+<p>​        其中需要注意的是XADC模块的采样通道并不是全部可用的，每块开发板都有所不同，需要预先查看开发板的用户手册来确定使用哪个通道。Xilinx在IP核中已经预先为每一个通道分配了对应的地址，使用过程中一定要注意地址的问题，例如AD采样通道7的地址是0x25C，我们可以通过这个地址来访问AD采样通道7的采样值。此处的0x25C是16进制的地址，在SDK中定义的是偏移地址（以字节作为单位），两者有所差别。在使用过程中需要仔细阅读Xilinx提供的相关手册。</p>
+<p>​        IIC模块在运行的过程中每接受/发送成功一个字节后会发起一次中断。我们编写了相关代码，使得主机在完成了发送一个字节的动作后或是正在接收一个字节时，就会进入阻塞状态，随后利用中断回调函数来清除中断标志位使得程序继续运行，这样的好处是可以用非常简单的逻辑来对齐IIC的时序，便于控制。</p>
+<p>​        在主函数中，我们先使能各模块并调用函数初始化相关模块，随后程序进入while循环，设备开始工作。</p>
+<h2 id="调试过程"><a href="#调试过程" class="headerlink" title="调试过程"></a>调试过程</h2><p>​        第一个问题是有关GPIO库函数中设置GPIO方向的函数XGpio_SetDataDirection，</p>
+<p>​        我们使用该库函数定义GPIO的方向后发现GPIO功能异常，只有其中的最低位可以正常工作，但是当我们使用配置寄存器的方式去修改GPIO的方向时功能正常。我们查阅了2018.3版本的Vivado SDK官方API手册，其中说到该函数的第三个参数为方向掩码，设置为0时GPIO的方向为输出，设置为1时GPIO的方向为输入。我们的代码满足要求，经过我们的反复确认，手册中提及的这个方向掩码实际上是针对单个GPIO而言的，该版本下的API手册中并没有说清楚当用户使用多路GPIO时该参数需要如何赋值，在查阅最新版本的手册后发现方向掩码的描述应是设置为0 的位为输出，设置为1 的位为输入。也就是说当使用多路GPIO的时候应给方向掩码的每一位赋1而不是单纯的将方向掩码改为1。这与通过修改寄存器来修改GPIO的方向的方法一致，修改过后成功解决问题。</p>
+<p>​        第二个问题也是耗时最久的问题，程序在通过IIC读取MLX90614的温度时卡死。经过仔细排查，最终锁定问题出在回调函数的设定函数（XIic_SetRecvHandler, XIic_SetSendHandler以及XIic_SetStatusHandler）上，查询它们的子函数，发现在一个名为Xil_AssertVoid的函数中包含一层While循环，而这层While循环在程序运行时并没有正常跳出，这是问题产生的原因。查阅资料后发现，这个函数在调试模式下会调用Xil_Assert来检查参数是否正常。如果不正常，缺省情况下，没有打印，会进入死循环。通过调用Xil_AssertSetCallback，设置回调函数，可以自己处理失败情况，比如增加打印。修改While循环的条件后问题解决，程序正常运行。</p>
+<h2 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h2><p>​        最终设备能够测量物体温度并识别人员是否靠近、是否佩戴口罩（用的Openmv，神经网络识别）以及体温是否正常，最终实时语言播报并把相关信息发送到手机上。</p>
+<p>​        工程链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/YIZHI_W/78369460?spm=1001.2014.3001.5503">https://download.csdn.net/download/YIZHI_W/78369460?spm=1001.2014.3001.5503</a></p>
 
       
     </div>
