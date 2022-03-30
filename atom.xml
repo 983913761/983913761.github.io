@@ -6,7 +6,7 @@
   <link href="https://yizhi-w.cn/atom.xml" rel="self"/>
   
   <link href="https://yizhi-w.cn/"/>
-  <updated>2022-03-30T11:43:49.654Z</updated>
+  <updated>2022-03-30T12:32:36.204Z</updated>
   <id>https://yizhi-w.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Paddle环境配置</title>
+    <link href="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    <id>https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-03-26T16:00:00.000Z</published>
+    <updated>2022-03-30T12:32:36.204Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h1><h1 id="Paddle简介"><a href="#Paddle简介" class="headerlink" title="Paddle简介"></a>Paddle简介</h1><p>飞桨(PaddlePaddle)是集深度学习核心框架、工具组件和服务平台为一体的技术先进、功能完备的开源深度学习平台，已被中国企业广泛使用，深度契合企业应用需求，拥有活跃的开发者社区生态。提供丰富的官方支持模型集合，并推出全类型的高性能部署和集成方案供开发者使用。</p><h1 id="安装PaddlePaddle环境"><a href="#安装PaddlePaddle环境" class="headerlink" title="安装PaddlePaddle环境"></a>安装PaddlePaddle环境</h1><p>我使用了Anaconda去配置Paddle环境。<br>使用Anaconda Prompt为Paddle创建一个新的环境，在Anaconda命令行中输入下面的代码，即可安装PaddlePaddle2.2，CUDA版本为10.2。我的显卡是支持CUDA11.2的，但我在安装CUDA11.2的PaddlePaddle时出现了一些错误，我换装了CUDA10.2的PaddlePaddle后解决了这个问题，并且使用上一切正常。</p><pre><code>python -m pip install paddlepaddle-gpu==2.2.2 -i https://mirror.baidu.com/pypi/simple</code></pre><p>安装完成后找一个可以执行python代码的软件，我使用的是Pycharm（理论上仅用命令行也可以，在命令前加上python表示用python执行，未经验证），选定之前创建的Paddle环境后输入import paddle ，再输入 paddle.utils.run_check()，如果出现PaddlePaddle is installed successfully!，说明已成功安装。</p><h1 id="安装PaddleDetection"><a href="#安装PaddleDetection" class="headerlink" title="安装PaddleDetection"></a>安装PaddleDetection</h1><p>在PaddlePaddle环境的根目录下新建一个文件夹用于安装PaddleDetecetion，在Anacon Powershell中cd到该目录。</p><pre><code># 克隆PaddleDetection仓库cd &lt;path/to/clone/PaddleDetection&gt;git clone https://github.com/PaddlePaddle/PaddleDetection.git# 安装其他依赖cd PaddleDetectionpip install -r requirements.txt# 编译安装paddledetpython setup.py install</code></pre><p>由于原版pycocotools依赖不支持Windows，可能安装失败，可输入如下指令采用第三方实现版本，该版本仅支持Python3</p><pre><code>pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI</code></pre><p>除此以外我还遇到了cython和cython-bbox安装报错的情况，其中cython可以通过</p><pre><code>pip install cython</code></pre><p>安装，而cython-bbox我通过手动安装成功。</p><p>安装后确认测试通过（命令都要在PaddleDetection目录下执行）：</p><pre><code>python ppdet/modeling/tests/test_architectures.py</code></pre><p>测试通过后会提示如下信息：</p><pre><code>.......---------------------------------------------------------------------Ran 7 tests in 12.816sOK</code></pre><p>参考资料：<a href="https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.4/docs/tutorials/INSTALL_cn.md">https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.4/docs/tutorials/INSTALL_cn.md</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;听歌&quot;&gt;&lt;a href=&quot;#听歌&quot; class=&quot;headerlink&quot; title=&quot;听歌&quot;&gt;&lt;/a&gt;听歌&lt;/h1&gt;&lt;h1 id=&quot;Paddle简介&quot;&gt;&lt;a href=&quot;#Paddle简介&quot; class=&quot;headerlink&quot; title=&quot;Paddle简介&quot;</summary>
+      
+    
+    
+    
+    <category term="FPGA" scheme="https://yizhi-w.cn/categories/FPGA/"/>
+    
+    
+    <category term="FPGA" scheme="https://yizhi-w.cn/tags/FPGA/"/>
+    
+    <category term="集创赛" scheme="https://yizhi-w.cn/tags/%E9%9B%86%E5%88%9B%E8%B5%9B/"/>
+    
+    <category term="神经网络" scheme="https://yizhi-w.cn/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>我的电赛经历</title>

@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2022-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://yizhi-w.cn/2022/02/21/5%20%E6%88%91%E7%9A%84%E7%94%B5%E8%B5%9B%E7%BB%8F%E5%8E%86/</loc>
     
     <lastmod>2022-03-30</lastmod>
@@ -97,6 +106,13 @@
   </url>
   
   <url>
+    <loc>https://yizhi-w.cn/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://yizhi-w.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -104,7 +120,21 @@
   </url>
   
   <url>
-    <loc>https://yizhi-w.cn/tags/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/</loc>
+    <loc>https://yizhi-w.cn/tags/FPGA/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yizhi-w.cn/tags/%E9%9B%86%E5%88%9B%E8%B5%9B/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yizhi-w.cn/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
