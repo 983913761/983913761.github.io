@@ -172,6 +172,164 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2022/04/19/8%20PaddleDetection%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95--%E7%BA%AFARM%E4%B8%8B%E7%9A%84%E5%90%84%E7%B1%BB%E6%A8%A1%E5%9E%8B%EF%BC%881%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="王忆之">
+      <meta itemprop="description" content="在这里我们谈论FPGA、电子线路、数字IC，或许还有更多……">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YiZhi_W的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/19/8%20PaddleDetection%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95--%E7%BA%AFARM%E4%B8%8B%E7%9A%84%E5%90%84%E7%B1%BB%E6%A8%A1%E5%9E%8B%EF%BC%881%EF%BC%89/" class="post-title-link" itemprop="url">Paddle环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-19 00:00:00 / 修改时间：13:09:30" itemprop="dateCreated datePublished" datetime="2022-04-19T00:00:00+08:00">2022-04-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="模型调试记录"><a href="#模型调试记录" class="headerlink" title="模型调试记录"></a>模型调试记录</h1><h2 id="1-base-base-o"><a href="#1-base-base-o" class="headerlink" title="1.base_base_o"></a>1.base_base_o</h2><p><img src="https://img-blog.csdnimg.cn/7afa10d4ec34419d85602471ba7de7be.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费3500ms"><br>    不使用slim策略训练，不使用slim策略导出的最普通模型，耗时是3500ms。</p>
+<h2 id="2-base-base-set-o"><a href="#2-base-base-set-o" class="headerlink" title="2.base_base_set_o"></a>2.base_base_set_o</h2><p><img src="https://img-blog.csdnimg.cn/b540f66c52034bdbb3c6b77532fb0049.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费3500ms"><br>    在1的条件下追加了PaddleLite的Opt工具进行8bit优化，耗时几乎没变化。</p>
+<h2 id="3-base-qat-o"><a href="#3-base-qat-o" class="headerlink" title="3.base_qat_o"></a>3.base_qat_o</h2><p><img src="https://img-blog.csdnimg.cn/14f41ed9fbd74d719d139149a2f25bae.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费1700ms（-50%）"><br>    不使用Slim策略训练，使用8bit量化导出模型，耗时减少了一半。<br>    没有正确识别目标。</p>
+<h2 id="4-base-qat-set-o"><a href="#4-base-qat-set-o" class="headerlink" title="4.base_qat_set_o"></a>4.base_qat_set_o</h2><p><img src="https://img-blog.csdnimg.cn/d7d0655250e74f888e5c0511333cc3ac.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费1700ms（-50%）"><br>    在3的条件下追加opt，耗时几乎没变化。<br>    没有正确识别目标。</p>
+<h2 id="5-qat-base-o"><a href="#5-qat-base-o" class="headerlink" title="5.qat_base_o"></a>5.qat_base_o</h2><p><img src="https://img-blog.csdnimg.cn/aae851be4be94bca9c026461d4bab84e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费3500ms"><br>    使用8bitQAT进行训练，但是不使用Slim策略导出模型，耗时回到了3500ms。<br>    没有正确识别目标。</p>
+<h2 id="6-qat-base-set-o"><a href="#6-qat-base-set-o" class="headerlink" title="6.qat_base_set_o"></a>6.qat_base_set_o</h2><p><img src="https://img-blog.csdnimg.cn/a5f18b591add4f14a68f775fe9e668f8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费3500ms"><br>    没什么可说的，同上。</p>
+<h2 id="7-qat-qat-o"><a href="#7-qat-qat-o" class="headerlink" title="7.qat_qat_o"></a>7.qat_qat_o</h2><p><img src="https://img-blog.csdnimg.cn/719327b7afc843e09dfd6fc33bdaf4b1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费1700ms（-50%）"><br>    使用8bitQAT量化训练，使用8bit量化导出模型，耗时同3比未见减少。</p>
+<h2 id="8-qat-qat-set-o"><a href="#8-qat-qat-set-o" class="headerlink" title="8.qat_qat_set_o"></a>8.qat_qat_set_o</h2><p><img src="https://img-blog.csdnimg.cn/39e9bf2f07f04f19b117dbe1c354f130.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAWWlaaGlfVw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="大约耗费1700ms（-50%）"><br>    同上</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><pre><code>1.只有在训练时的Slim策略与模型导出时的Slim策略相同时，得到的模型才可以得到正确的结果。
+2.无论是在模型导出环节还是在Opt环节中加入8bit量化，都会使模型变小，但模型的大小并不能决定预测的速度。
+3.被我们寄予厚望的Opt工具效果甚微，甚至是没有效果，也有可能是使用方法出了问题。
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="王忆之">
+      <meta itemprop="description" content="在这里我们谈论FPGA、电子线路、数字IC，或许还有更多……">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YiZhi_W的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">Paddle环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2022-04-17T00:00:00+08:00">2022-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-19 13:09:25" itemprop="dateModified" datetime="2022-04-19T13:09:25+08:00">2022-04-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FPGA/" itemprop="url" rel="index"><span itemprop="name">FPGA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题概述"><a href="#问题概述" class="headerlink" title="问题概述"></a>问题概述</h2><p>在使用PaddleDetection训练模型修改训练图片输入大小时遇到了如下的错误<br><img src="https://img-blog.csdnimg.cn/3afc38296cfd4b4a8b0838cb539f9ca2.png" alt="在这里插入图片描述"></p>
+<p>ValueError: (InvalidArgument) The 2-th dimension of input[0] and input[1] is expected to be equal.But received input[0]’s shape = [1, 256, 20, 20], input[1]’s shape = [1, 512, 19, 19].<br>  [Hint: Expected inputs_dims[0][j] == inputs_dims[i][j], but received inputs_dims[0][j]:20 != inputs_dims[i][j]:19.] (at ..\paddle/fluid/operators/concat_op.h:63)<br>  [operator &lt; concat &gt; error]<br>  大致意思时输入的参数与预期不符等等（我还没有完全搞清楚）。</p>
+<h2 id="起因：修改config文件"><a href="#起因：修改config文件" class="headerlink" title="起因：修改config文件"></a>起因：修改config文件</h2><p>首先来看一下在发生这个错误前我对yolov3_reader.yml做的修改：<br>我将batch_transforms中初始的- BatchRandomResize: {target_size: [320, 352, 384, 416, 448, 480, 512, 544, 576, 608], random_size: True, random_interp: True, keep_ratio: False}<br>修改为- BatchRandomResize: {target_size: [160, 176, 192, 208, 224, 240, 256, 272, 288, 304], random_size: True, random_interp: True, keep_ratio: False}，本意是Resize训练输入图片，让模型变小一些，然后就出现了上述报错。</p>
+<h2 id="排查原因"><a href="#排查原因" class="headerlink" title="排查原因"></a>排查原因</h2><p>首先根据报错的字面意思，我怀疑问题与输入图片的shape有关。<br>由于默认是开启了random_size的，因此每次读一个batch的训练图片时会将图片Resize成target_size列表中随机的一个大小，我推测报错的原因与target_size有关。我尝试将列表中的其它数值删除，只留下256、320等单个数值，发现个别数值可用。反复测试后发现32的整数倍的size均可用，例如target_size: [288, 320, 352]。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>可以通过修改BatchRandomResize中的target_size来达到修改输入图片size的目的，但注意size要是32的倍数，即可避免该报错。同样的，如果对它进行了修改，那么在下面的EvalReader和TestReader中也要对target_size做相应的修改，否则在评估阶段也会出现同样的报错。</p>
+<h2 id="一点思考"><a href="#一点思考" class="headerlink" title="一点思考"></a>一点思考</h2><p>实际上我们可以看到，在初始的BatchRandomResize中，给出的target_size实际上都是32的倍数，所以理论上导致该报错的原因应该是PaddleDetection框架中做的限制，这一点在源码中应该有体现，欢迎讨论！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -813,7 +971,7 @@ OK
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -826,7 +984,7 @@ OK
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

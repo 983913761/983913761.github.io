@@ -23,22 +23,25 @@
     var CONFIG = {"hostname":"yizhi-w.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="听歌Paddle简介飞桨(PaddlePaddle)是集深度学习核心框架、工具组件和服务平台为一体的技术先进、功能完备的开源深度学习平台，已被中国企业广泛使用，深度契合企业应用需求，拥有活跃的开发者社区生态。提供丰富的官方支持模型集合，并推出全类型的高性能部署和集成方案供开发者使用。 安装PaddlePaddle环境我使用了Anaconda去配置Paddle环境。使用Anaconda Prompt">
+  <meta name="description" content="问题概述在使用PaddleDetection训练模型修改训练图片输入大小时遇到了如下的错误 ValueError: (InvalidArgument) The 2-th dimension of input[0] and input[1] is expected to be equal.But received input[0]’s shape &#x3D; [1, 256, 20, 20], input[">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paddle环境配置">
-<meta property="og:url" content="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:url" content="https://yizhi-w.cn/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/index.html">
 <meta property="og:site_name" content="YiZhi_W的博客">
-<meta property="og:description" content="听歌Paddle简介飞桨(PaddlePaddle)是集深度学习核心框架、工具组件和服务平台为一体的技术先进、功能完备的开源深度学习平台，已被中国企业广泛使用，深度契合企业应用需求，拥有活跃的开发者社区生态。提供丰富的官方支持模型集合，并推出全类型的高性能部署和集成方案供开发者使用。 安装PaddlePaddle环境我使用了Anaconda去配置Paddle环境。使用Anaconda Prompt">
+<meta property="og:description" content="问题概述在使用PaddleDetection训练模型修改训练图片输入大小时遇到了如下的错误 ValueError: (InvalidArgument) The 2-th dimension of input[0] and input[1] is expected to be equal.But received input[0]’s shape &#x3D; [1, 256, 20, 20], input[">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-30T12:32:36.204Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/3afc38296cfd4b4a8b0838cb539f9ca2.png">
+<meta property="article:published_time" content="2022-04-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-19T05:09:25.308Z">
 <meta property="article:author" content="王忆之">
 <meta property="article:tag" content="FPGA">
 <meta property="article:tag" content="集创赛">
 <meta property="article:tag" content="神经网络">
+<meta property="article:tag" content="Paddle">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/3afc38296cfd4b4a8b0838cb539f9ca2.png">
 
-<link rel="canonical" href="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+<link rel="canonical" href="https://yizhi-w.cn/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/">
 
 
 <script id="page-configurations">
@@ -177,7 +180,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+    <link itemprop="mainEntityOfPage" href="https://yizhi-w.cn/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -200,14 +203,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-27 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-27T00:00:00+08:00">2022-03-27</time>
+              <time title="创建时间：2022-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2022-04-17T00:00:00+08:00">2022-04-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-30 20:32:36" itemprop="dateModified" datetime="2022-03-30T20:32:36+08:00">2022-03-30</time>
+                <time title="修改时间：2022-04-19 13:09:25" itemprop="dateModified" datetime="2022-04-19T13:09:25+08:00">2022-04-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,40 +240,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h1><h1 id="Paddle简介"><a href="#Paddle简介" class="headerlink" title="Paddle简介"></a>Paddle简介</h1><p>飞桨(PaddlePaddle)是集深度学习核心框架、工具组件和服务平台为一体的技术先进、功能完备的开源深度学习平台，已被中国企业广泛使用，深度契合企业应用需求，拥有活跃的开发者社区生态。提供丰富的官方支持模型集合，并推出全类型的高性能部署和集成方案供开发者使用。</p>
-<h1 id="安装PaddlePaddle环境"><a href="#安装PaddlePaddle环境" class="headerlink" title="安装PaddlePaddle环境"></a>安装PaddlePaddle环境</h1><p>我使用了Anaconda去配置Paddle环境。<br>使用Anaconda Prompt为Paddle创建一个新的环境，在Anaconda命令行中输入下面的代码，即可安装PaddlePaddle2.2，CUDA版本为10.2。我的显卡是支持CUDA11.2的，但我在安装CUDA11.2的PaddlePaddle时出现了一些错误，我换装了CUDA10.2的PaddlePaddle后解决了这个问题，并且使用上一切正常。</p>
-<pre><code>python -m pip install paddlepaddle-gpu==2.2.2 -i https://mirror.baidu.com/pypi/simple
-</code></pre>
-<p>安装完成后找一个可以执行python代码的软件，我使用的是Pycharm（理论上仅用命令行也可以，在命令前加上python表示用python执行，未经验证），选定之前创建的Paddle环境后输入import paddle ，再输入 paddle.utils.run_check()，如果出现PaddlePaddle is installed successfully!，说明已成功安装。</p>
-<h1 id="安装PaddleDetection"><a href="#安装PaddleDetection" class="headerlink" title="安装PaddleDetection"></a>安装PaddleDetection</h1><p>在PaddlePaddle环境的根目录下新建一个文件夹用于安装PaddleDetecetion，在Anacon Powershell中cd到该目录。</p>
-<pre><code># 克隆PaddleDetection仓库
-cd &lt;path/to/clone/PaddleDetection&gt;
-git clone https://github.com/PaddlePaddle/PaddleDetection.git
-
-# 安装其他依赖
-cd PaddleDetection
-pip install -r requirements.txt
-
-# 编译安装paddledet
-python setup.py install
-</code></pre>
-<p>由于原版pycocotools依赖不支持Windows，可能安装失败，可输入如下指令采用第三方实现版本，该版本仅支持Python3</p>
-<pre><code>pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
-</code></pre>
-<p>除此以外我还遇到了cython和cython-bbox安装报错的情况，其中cython可以通过</p>
-<pre><code>pip install cython
-</code></pre>
-<p>安装，而cython-bbox我通过手动安装成功。</p>
-<p>安装后确认测试通过（命令都要在PaddleDetection目录下执行）：</p>
-<pre><code>python ppdet/modeling/tests/test_architectures.py
-</code></pre>
-<p>测试通过后会提示如下信息：</p>
-<pre><code>.......
----------------------------------------------------------------------
-Ran 7 tests in 12.816s
-OK
-</code></pre>
-<p>参考资料：<a target="_blank" rel="noopener" href="https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.4/docs/tutorials/INSTALL_cn.md">https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.4/docs/tutorials/INSTALL_cn.md</a></p>
+        <h2 id="问题概述"><a href="#问题概述" class="headerlink" title="问题概述"></a>问题概述</h2><p>在使用PaddleDetection训练模型修改训练图片输入大小时遇到了如下的错误<br><img src="https://img-blog.csdnimg.cn/3afc38296cfd4b4a8b0838cb539f9ca2.png" alt="在这里插入图片描述"></p>
+<p>ValueError: (InvalidArgument) The 2-th dimension of input[0] and input[1] is expected to be equal.But received input[0]’s shape = [1, 256, 20, 20], input[1]’s shape = [1, 512, 19, 19].<br>  [Hint: Expected inputs_dims[0][j] == inputs_dims[i][j], but received inputs_dims[0][j]:20 != inputs_dims[i][j]:19.] (at ..\paddle/fluid/operators/concat_op.h:63)<br>  [operator &lt; concat &gt; error]<br>  大致意思时输入的参数与预期不符等等（我还没有完全搞清楚）。</p>
+<h2 id="起因：修改config文件"><a href="#起因：修改config文件" class="headerlink" title="起因：修改config文件"></a>起因：修改config文件</h2><p>首先来看一下在发生这个错误前我对yolov3_reader.yml做的修改：<br>我将batch_transforms中初始的- BatchRandomResize: {target_size: [320, 352, 384, 416, 448, 480, 512, 544, 576, 608], random_size: True, random_interp: True, keep_ratio: False}<br>修改为- BatchRandomResize: {target_size: [160, 176, 192, 208, 224, 240, 256, 272, 288, 304], random_size: True, random_interp: True, keep_ratio: False}，本意是Resize训练输入图片，让模型变小一些，然后就出现了上述报错。</p>
+<h2 id="排查原因"><a href="#排查原因" class="headerlink" title="排查原因"></a>排查原因</h2><p>首先根据报错的字面意思，我怀疑问题与输入图片的shape有关。<br>由于默认是开启了random_size的，因此每次读一个batch的训练图片时会将图片Resize成target_size列表中随机的一个大小，我推测报错的原因与target_size有关。我尝试将列表中的其它数值删除，只留下256、320等单个数值，发现个别数值可用。反复测试后发现32的整数倍的size均可用，例如target_size: [288, 320, 352]。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>可以通过修改BatchRandomResize中的target_size来达到修改输入图片size的目的，但注意size要是32的倍数，即可避免该报错。同样的，如果对它进行了修改，那么在下面的EvalReader和TestReader中也要对target_size做相应的修改，否则在评估阶段也会出现同样的报错。</p>
+<h2 id="一点思考"><a href="#一点思考" class="headerlink" title="一点思考"></a>一点思考</h2><p>实际上我们可以看到，在初始的BatchRandomResize中，给出的target_size实际上都是32的倍数，所以理论上导致该报错的原因应该是PaddleDetection框架中做的限制，这一点在源码中应该有体现，欢迎讨论！</p>
 
     </div>
 
@@ -306,7 +281,7 @@ OK
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yizhi-w.cn/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="Paddle环境配置">https://yizhi-w.cn/2022/03/27/6 集创赛参赛记录1——Paddle环境配置/</a>
+    <a href="https://yizhi-w.cn/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/" title="Paddle环境配置">https://yizhi-w.cn/2022/04/17/7 关于PaddleDetection训练模型时的一个错误/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -349,6 +324,7 @@ OK
               <a href="/tags/FPGA/" rel="tag"># FPGA</a>
               <a href="/tags/%E9%9B%86%E5%88%9B%E8%B5%9B/" rel="tag"># 集创赛</a>
               <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"># 神经网络</a>
+              <a href="/tags/Paddle/" rel="tag"># Paddle</a>
           </div>
 
         
@@ -357,11 +333,11 @@ OK
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/02/21/5%20%E6%88%91%E7%9A%84%E7%94%B5%E8%B5%9B%E7%BB%8F%E5%8E%86/" rel="prev" title="我的电赛经历">
-      <i class="fa fa-chevron-left"></i> 我的电赛经历
+    <a href="/2022/03/27/6%20%E9%9B%86%E5%88%9B%E8%B5%9B%E5%8F%82%E8%B5%9B%E8%AE%B0%E5%BD%951%E2%80%94%E2%80%94Paddle%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="Paddle环境配置">
+      <i class="fa fa-chevron-left"></i> Paddle环境配置
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/04/17/7%20%E5%85%B3%E4%BA%8EPaddleDetection%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E6%97%B6%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF/" rel="next" title="Paddle环境配置">
+    <a href="/2022/04/19/8%20PaddleDetection%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95--%E7%BA%AFARM%E4%B8%8B%E7%9A%84%E5%90%84%E7%B1%BB%E6%A8%A1%E5%9E%8B%EF%BC%881%EF%BC%89/" rel="next" title="Paddle环境配置">
       Paddle环境配置 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -422,7 +398,7 @@ OK
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AC%E6%AD%8C"><span class="nav-number">1.</span> <span class="nav-text">听歌</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Paddle%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Paddle简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85PaddlePaddle%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">安装PaddlePaddle环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85PaddleDetection"><span class="nav-number">4.</span> <span class="nav-text">安装PaddleDetection</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">问题概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0%EF%BC%9A%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">起因：修改config文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">排查原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">一点思考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
